@@ -1,8 +1,16 @@
+import datetime
+
+
 class Package:
     def __init__(self, package_id, delivery_addy, city, zip_code, deadline, weight, status, notes):
         self.package_id = package_id
         self.delivery_addy = delivery_addy
-        self.deadline = deadline
+        if deadline == 'EOD':
+            self.deadline = datetime.timedelta(hours=23, minutes=59)
+        else:
+            parsed_date = datetime.datetime.strptime(deadline, '%I:%M %p')
+            hours, minutes = parsed_date.hour, parsed_date.minute
+            self.deadline = datetime.timedelta(hours=hours, minutes=minutes)
         self.city = city
         self.zip_code = zip_code
         self.weight = weight

@@ -1,4 +1,5 @@
-def addressLookupHash():
+
+def address_lookup_hash():
     address_hash = {}
     address_hash[0] = "4001 South 700 East"
     address_hash[1] = "1060 Dalton Ave S"
@@ -16,7 +17,7 @@ def addressLookupHash():
     address_hash[13] = "3060 Lester St"
     address_hash[14] = "3148 S 1100 W"
     address_hash[15] = "3365 S 900 W"
-    address_hash[16] = "3575 W Valley Central Station Bus Loop"
+    address_hash[16] = "3575 W Valley Central Station bus Loop"
     address_hash[17] = "3595 Main St"
     address_hash[18] = "380 W 2880 S"
     address_hash[19] = "410 S State St"
@@ -29,3 +30,14 @@ def addressLookupHash():
     address_hash[26] = "6351 South 900 East"
 
     return address_hash
+
+# this function creates a hash table of all the addresses
+addresses = address_lookup_hash()
+
+# this function looks up the address key in the address hash table
+def address_lookup(address_to_find):
+    for key, value in addresses.items():
+        if value == address_to_find:
+            return key
+
+    return "Address not found in the hash"

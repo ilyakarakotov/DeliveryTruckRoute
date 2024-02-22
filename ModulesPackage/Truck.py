@@ -1,14 +1,17 @@
+from datetime import datetime
+
+
 class Truck:
-    def __init__(self, truck_leave_time, package_capacity, driver, route):
-        self.truck_leave_time = truck_leave_time
-        self.package_capacity = package_capacity
+    def __init__(self, time, driver):
+        self.time = time
+        self.miles = 0
+        self.package_capacity = 16
         self.packages_loaded = []
         self.driver = driver
-        self.route = route
 
     def __str__(self):
         result = "Truck Info:\nDriver ID: {}\n".format(self.driver)
-        result += "Leave Time: {}\n".format(self.truck_leave_time)
+        result += "Leave Time: {}\n".format(self.time)
         result += "Packages:\n"
         for package in self.packages_loaded:
             result += f'{package}\n'
