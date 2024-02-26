@@ -1,5 +1,5 @@
 class DeliveryHash:
-    def __init__(self, initial_capacity=10, load_factor=.7):
+    def __init__(self, initial_capacity=10):
         self.table = []
         for i in range(initial_capacity):
             self.table.append([])

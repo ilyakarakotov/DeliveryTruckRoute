@@ -21,6 +21,6 @@ class Truck:
         # if the number of packages loaded is less than the capacity, load the package to the truck
         if self.package_capacity > len(self.packages_loaded):
             self.packages_loaded.append(package)
-            package.status = "en route"
+            package.departure_time = self.time
         else:
             print('Truck is at maximum capacity')

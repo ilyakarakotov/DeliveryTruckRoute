@@ -14,6 +14,9 @@ def truck_deliver_packages(truck):
     hub_address = addresses[0]
     curr_address = hub_address
 
+    for package in truck.packages_loaded:
+        package.status = "En route"
+
     # iterates through truck addresses using NN until truck load is emptied out
     while len(truck.packages_loaded) != 0:
 
@@ -26,22 +29,27 @@ def truck_deliver_packages(truck):
         for i in range(len(truck.packages_loaded)):
             if truck.packages_loaded[i].delivery_addy == curr_address:
 
-                print("Package delivered at " + curr_address + " - Total Miles Driven: " + str(truck.miles))
-                truck.packages_loaded[i].status = "delivered"
-                if truck.time > truck.packages_loaded[i].deadline:
-                    print("Delivery Deadline: " + str(truck.packages_loaded[i].deadline) + "\nDelivered At: " + str(
-                        truck.time))
-                    print("Delivery was late!")
-                    print()
-                else:
-                    print("Delivery Deadline: " + str(truck.packages_loaded[i].deadline) + "\nDelivered At: " + str(
-                        truck.time))
-                    print("Delivery was made on time!")
-                    print()
+                truck.packages_loaded[i].status = "Delivered"
+                truck.packages_loaded[i].delivery_time = truck.time
+
+                print("Package delivered at " + curr_address + " - Total Miles Driven: " + str(round(truck.miles, 2)))
+
+                # if truck.time > truck.packages_loaded[i].deadline:
+                #     print("Delivery Deadline: " + str(truck.packages_loaded[i].deadline) + "\nDelivered At: " + str(
+                #         truck.time))
+                #     print("Delivery was late!")
+                #     print()
+                # else:
+                #     print("Delivery Deadline: " + str(truck.packages_loaded[i].deadline) + "\nDelivered At: " + str(
+                #         truck.time))
+                #     print("Delivery was made on time!")
+                #     print()
                 truck.packages_loaded.remove(truck.packages_loaded[i])
                 # print(truck.packages_loaded)
                 break
+
     # return truck to hub
     truck.miles += float(distance_matrix[address_lookup(curr_address)][0])
     truck.time += timedelta(minutes=(float(distance_matrix[address_lookup(curr_address)][0]) / 18) * 60)
     print("Truck has returned to the hub - Total Miles Driven: " + str(truck.miles) + " - Time: " + str(truck.time))
+    print()

@@ -29,4 +29,6 @@ def min_distance_from(curr_delivery, truck):
     # adds time to truck based on miles traveled
     truck.time += timedelta(minutes=(float(nearest_distance) / 18) * 60)
 
+
+
     return nearest_address, truck
