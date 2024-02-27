@@ -1,6 +1,4 @@
-from datetime import datetime
-
-
+# The truck class is used to create truck objects
 class Truck:
     def __init__(self, time, driver):
         self.time = time
@@ -17,8 +15,9 @@ class Truck:
             result += f'{package}\n'
         return result
 
+    # This function adds a package to the truck
     def add_package(self, package):
-        # if the number of packages loaded is less than the capacity, load the package to the truck
+        # If the number of packages loaded is less than the capacity, load the package to the truck
         if self.package_capacity > len(self.packages_loaded):
             self.packages_loaded.append(package)
             package.departure_time = self.time

@@ -1,12 +1,13 @@
 import datetime
 
 
+# This class creates a package object
 class Package:
     def __init__(self, package_id, delivery_addy, city, zip_code, deadline, weight, status, notes):
         self.package_id = package_id
         self.delivery_addy = delivery_addy
+        # If the deadline is EOD, the deadline is set to EOD, otherwise deadline becomes timedelta object
         if deadline == 'EOD':
-            # self.deadline = datetime.timedelta(hours=23, minutes=59)
             self.deadline = 'EOD'
         else:
             parsed_date = datetime.datetime.strptime(deadline, '%I:%M %p')
@@ -19,12 +20,6 @@ class Package:
         self.departure_time = None
         self.delivery_time = None
         self.notes = notes
-
-    # def __str__(self):
-    #     return f'ID: {self.package_id}, Address: {self.delivery_addy}, Delivery Deadline: {self.deadline}, City: {self.city}, Zip code: {self.zip_code}, Weight (KG): {self.weight}, Status: {self.status}, Departure Time: {self.departure_time}, Delivery Time: {self.delivery_time}, Notes: {self.notes}'
-    #
-    # def __repr__(self):
-    #     return f'ID: {self.package_id}, Address: {self.delivery_addy}, Delivery Deadline: {self.deadline}, City: {self.city}, Zip code: {self.zip_code}, Weight (KG): {self.weight}, Status: {self.status}, Departure Time: {self.departure_time}, Delivery Time: {self.delivery_time}, Notes: {self.notes}'
 
     def __str__(self):
         return f'{str(self.package_id): <5}' \
@@ -50,7 +45,7 @@ class Package:
                 f'{str(self.delivery_time): <20}' \
                 f'\t{str(self.notes): <20}'
 
-    # this function sets the status of the package at a certain time
+    # This function sets the status of the package based on a certain time
     def set_status_at_time(self, time):
         if time >= self.delivery_time:
             self.status = "Delivered"

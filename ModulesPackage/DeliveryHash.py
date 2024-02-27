@@ -1,11 +1,12 @@
 class DeliveryHash:
-    def __init__(self, initial_capacity=10):
+    # creates an empty hash table with a bucket capacity of 10
+    def __init__(self, capacity=10):
         self.table = []
-        for i in range(initial_capacity):
+        for i in range(capacity):
             self.table.append([])
 
     def __str__(self):
-        # iterates through each bucket, and each package in each bucket, and outputs the package information
+        # Iterates through each bucket, and each package in each bucket, and outputs the package information
         result = ""
         for bucket_list in self.table:
             for package in bucket_list:
@@ -13,7 +14,7 @@ class DeliveryHash:
         return result
 
     def __repr__(self):
-        # iterates through each bucket, and each id in each bucket, and outputs the package information
+        # Iterates through each bucket, and each id in each bucket, and outputs the package information
         result = ""
         for bucket_list in self.table:
             for package in bucket_list:
@@ -21,20 +22,21 @@ class DeliveryHash:
         return result
 
     def add_order(self, package):
-        # find the bucket to place order in
+        # Find the bucket to place order in
         bucket = package.package_id % 10
         bucket_list = self.table[bucket]
 
-        # input order id and order into bucket list
+        # Input order id and order into bucket list
         key_value = [package.package_id, package]
         bucket_list.append(key_value)
         return True
 
+    # Looks up a package in the hash table
     def lookup(self, package_id):
         bucket = package_id % 10
         bucket_list = self.table[bucket]
 
-        # iterates through bucket, and if pkg id is in it, return the package at the id.
+        # Iterates through bucket, and if pkg id is in it, return the package at the id.
         for pkg_id in bucket_list:
             if pkg_id[0] == package_id:
                 return pkg_id[1]

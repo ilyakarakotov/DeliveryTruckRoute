@@ -1,23 +1,25 @@
 # C950 Data Structures and Algorithms II Project - Student ID: 010803145
 
-import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 from ModulesPackage.CsvParser import *
 from ModulesPackage.PackageDelivery import truck_deliver_packages
 from ModulesPackage.Truck import Truck
 
 # program interface
-print("Data Structures and Algorithms - C950 - WGUPS Package Delivery System\n")
-print("Welcome to the WGUPS Package Delivery System.\n")
+print("\n*********************************************")
+print("Data Structures and Algorithms - C950")
+print("Welcome to the WGUPS Package Delivery System.")
+print("*********************************************\n")
 
 exit_check = input("Press Enter to Begin Package Delivery\nType 'exit' to Exit Program:\n")
 
+# If user does not type 'exit', the program will run
 if exit_check != "exit":
 
     # creates and fills the package hash table
     all_packages = create_package_hash()
 
-    # initialize trucks
+    # initialize trucks with the time they leave the hub
     truck1 = Truck(timedelta(hours=8, minutes=0), 1)
     truck2 = Truck(timedelta(hours=9, minutes=5), 2)
     truck3 = Truck(timedelta(hours=10, minutes=20), 1)
@@ -80,23 +82,29 @@ if exit_check != "exit":
     print("Truck 3 Deliveries:")
     truck_deliver_packages(truck3)
 
+    # Total miles driven by all trucks is calculated and printed
     total_miles = truck1.miles + truck2.miles + truck3.miles
 
-    print("The packages have now been delivered.")
-    print("Total miles driven by all trucks: " + str(round(total_miles, 2)) + " miles\n")
+    print("****************************************")
+    print("All packages are now delivered!")
+    print("Total Miles By All Trucks: " + str(round(total_miles, 2)) + " Miles")
+    print("****************************************\n")
 
+    # User can look up package(s) status until they way to exit the program
     activity = input("For a list of all deliveries, type 'all'\n"
-                     "To look up a package, type the package ID. \n"
+                     "To look up a package, type the package ID.\n"
                      "If you want to exit the program, type 'exit'.\n")
+
     while activity != "exit":
+        # If user enters all, the status of all the packages is printed
         if activity == "all":
             input_time = input("\nCheck status of all packages at time (HH:MM:SS): ")
 
-            # input time is converted to a timedelta object
+            # Input time is converted to a timedelta object
             (h, m, s) = input_time.split(":")
             current_time = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
 
-            # table headers are printed
+            # Table headers are printed
             print(f"{'ID': <5}" \
                   f"{'Address': <30}" \
                   f"{'Deadline': <10}" \
@@ -107,25 +115,27 @@ if exit_check != "exit":
                   f"{'Departure': <20}" \
                   f"{'Delivery': <20}" \
                   f"\t{'Notes': <20}")
-
+            # All package status' are found through the set_status_at_time method
             for i in range(1, 41):
-                # package status is updated at the input time
+                # Package status is updated at the input time
                 package = all_packages.lookup(i)
                 package.set_status_at_time(current_time)
 
-                # package information is printed
+                # Package information is printed
                 print(package)
+
             activity = input("\nFor a list of all deliveries, type 'all'\n"
                              "To look up a package, type the package ID. \n"
                              "If you want to exit the program, type 'exit'.\n")
+        # If user enters a package ID, the status of that package is printed
         elif 1 <= int(activity) <= 40:
             input_time = input("\nCheck package status at time (HH:MM:SS): ")
 
-            # input time is converted to a timedelta object
+            # Input time is converted to a timedelta object
             (h, m, s) = input_time.split(":")
             current_time = timedelta(hours=int(h), minutes=int(m), seconds=int(s))
 
-            # table headers are printed
+            # Table headers are printed
             print(f'{"ID": <5}' \
                   f'{"Address": <30}' \
                   f'{"Deadline": <10}' \
@@ -137,16 +147,18 @@ if exit_check != "exit":
                   f'{"Delivery": <20}' \
                   f'\t{"Notes": <20}')
 
-            # package status is updated at the input time
+            # Package status is updated at the input time with the set_status_at_time method
             package = all_packages.lookup(int(activity))
             package.set_status_at_time(current_time)
 
-            # package information is printed
+            # Package information is printed
             print(package)
+
             activity = input("\nFor a list of all deliveries, type 'all'\n"
                              "To look up a package, type the package ID. \n"
                              "If you want to exit the program, type 'exit'.\n")
+        # If user enters an invalid input, they are prompted to enter a valid input
         else:
             print("Invalid input. Please type 'all' or a package ID.")
 
-    print("\nThank you for using the WGUPS Package Delivery System. Goodbye!")
+print("\nThank you for using the WGUPS Package Delivery System. Goodbye!")

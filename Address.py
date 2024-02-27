@@ -1,4 +1,4 @@
-
+# This function creates a hash table of all the addresses
 def address_lookup_hash():
     address_hash = {}
     address_hash[0] = "4001 South 700 East"
@@ -31,10 +31,9 @@ def address_lookup_hash():
 
     return address_hash
 
-# this function creates a hash table of all the addresses
 addresses = address_lookup_hash()
 
-# this function looks up the address key in the address hash table
+# This function looks up the address key in the address hash table
 def address_lookup(address_to_find):
     for key, value in addresses.items():
         if value == address_to_find:
